@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Halaman Pembayaran</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <title>Payments</title>
 
     <!-- Tailwind CSS for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -314,7 +315,6 @@
         // --- Language and Translation ---
         const translations = {
             id: {
-                'page-title': 'Halaman Pembayaran',
                 'main-title': 'Pembayaran',
                 'main-subtitle': 'Pilih metode pembayaran yang paling nyaman untuk Anda. Terima kasih atas dukungan Anda!',
                 'qris-desc': 'Mendukung semua E-Wallet (GoPay, OVO, Dana, ShopeePay) & Mobile Banking.',
@@ -333,7 +333,6 @@
                 'element-not-found': 'Elemen tidak ditemukan atau tidak memiliki teks.'
             },
             en: {
-                'page-title': 'Payment Page',
                 'main-title': 'Payment',
                 'main-subtitle': 'Choose the most convenient payment method for you. Thank you for your support!',
                 'qris-desc': 'Supports all E-Wallets (GoPay, OVO, Dana, ShopeePay) & Mobile Banking.',
@@ -376,9 +375,6 @@
                     }
                 }
             });
-
-            // Update page title
-            document.title = translations[lang]['page-title'];
 
             // Update active button style
             document.getElementById('lang-id').classList.toggle('lang-active', lang === 'id');
