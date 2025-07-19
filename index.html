@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Pembayaran</title>
+
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Custom styles for skeuomorphic effect */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #e0e5ec;
+            /* A neutral, soft background */
+        }
+
+        .skeuo-container {
+            position: relative;
+            background: #e0e5ec;
+            border-radius: 20px;
+            /* The key to the "pushed in" or "inset" look */
+            box-shadow: inset 7px 7px 15px #a3b1c6,
+                inset -7px -7px 15px #ffffff;
+        }
+
+        .skeuo-card {
+            background: #e0e5ec;
+            border-radius: 15px;
+            /* The key to the "pushed out" or "neumorphic" look */
+            box-shadow: 7px 7px 15px #a3b1c6,
+                -7px -7px 15px #ffffff;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .skeuo-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 9px 9px 18px #a3b1c6,
+                -9px -9px 18px #ffffff;
+        }
+
+        .skeuo-button {
+            color: #555;
+            background: linear-gradient(145deg, #f0f5fd, #c8d0e7);
+            border: 1px solid #d1d9e6;
+            border-radius: 8px;
+            box-shadow: 4px 4px 8px #a3b1c6,
+                -4px -4px 8px #ffffff;
+            transition: all 0.1s ease-in-out;
+        }
+
+        .skeuo-button.lang-active {
+            background: #e0e5ec;
+            box-shadow: inset 2px 2px 4px #a3b1c6,
+                inset -2px -2px 4px #ffffff;
+            color: #007bff;
+            font-weight: 700;
+        }
+
+        .skeuo-button:active {
+            /* On click, make it look "pressed" */
+            background: #e0e5ec;
+            box-shadow: inset 4px 4px 8px #a3b1c6,
+                inset -4px -4px 8px #ffffff;
+            color: #000;
+        }
+    </style>
+</head>
+
+<body class="flex items-center justify-center min-h-screen p-4 sm:p-6 lg:p-8">
+
+    <div class="skeuo-container w-full max-w-4xl p-6 sm:p-8 md:p-12">
+
+        <!-- Language Switcher -->
+        <div class="absolute top-4 right-4 sm:top-6 sm:right-6 flex space-x-2">
+            <button id="lang-id" class="skeuo-button px-3 py-1 text-sm font-medium lang-active">ID</button>
+            <button id="lang-en" class="skeuo-button px-3 py-1 text-sm font-medium">EN</button>
+        </div>
+
+        <header class="text-center mb-10">
+            <h1 data-lang="main-title" class="text-3xl sm:text-4xl font-bold text-gray-700">Dukungan & Pembayaran</h1>
+            <p data-lang="main-subtitle" class="text-gray-600 mt-2">Pilih metode pembayaran yang paling nyaman untuk
+                Anda. Terima kasih atas dukungan Anda!</p>
+        </header>
+
+        <main>
+            <!-- QRIS Section -->
+            <div class="skeuo-card p-6 mb-12 flex flex-col items-center text-center">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-4">QRIS</h2>
+                <p data-lang="qris-desc" class="text-gray-600 mb-4">Mendukung semua E-Wallet (GoPay, OVO, Dana,
+                    ShopeePay) & Mobile Banking.</p>
+                <!-- Ganti 'src' dengan URL gambar QRIS Anda -->
+                <img src="https://placehold.co/250x250/e0e5ec/333?text=GANTI+DENGAN\nQRIS+ANDA" alt="Kode QRIS"
+                    class="rounded-lg border-4 border-white shadow-lg"
+                    onerror="this.onerror=null;this.src='https://placehold.co/250x250/e0e5ec/333?text=Gagal+Memuat+QRIS';">
+                <p data-lang="account-name-prefix" class="mt-4 font-semibold text-gray-700">a/n [NAMA PEMILIK QRIS]</p>
+            </div>
+
+            <!-- Other Payment Methods -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                <!-- Jago -->
+                <div class="skeuo-card p-5 flex flex-col">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Jago_logo.svg/2560px-Jago_logo.svg.png"
+                        alt="Logo Bank Jago" class="h-6 w-auto object-contain self-start mb-4">
+                    <p class="text-sm text-gray-500">Bank Jago</p>
+                    <div class="flex items-center justify-between my-2">
+                        <span id="jago-number" class="text-lg font-semibold text-gray-800 tracking-wider">[NOMOR
+                            REKENING JAGO]</span>
+                        <button data-lang="copy-btn" onclick="copyToClipboard('jago-number', this)"
+                            class="skeuo-button px-3 py-1 text-sm font-medium">Salin</button>
+                    </div>
+                    <p data-lang="account-name-prefix" class="text-sm text-gray-600 mt-auto">a/n [NAMA PEMILIK REKENING]
+                    </p>
+                </div>
+
+                <!-- BSI -->
+                <div class="skeuo-card p-5 flex flex-col">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Bank_Syariah_Indonesia.svg/2560px-Bank_Syariah_Indonesia.svg.png"
+                        alt="Logo BSI" class="h-8 w-auto object-contain self-start mb-4">
+                    <p class="text-sm text-gray-500">Bank Syariah Indonesia</p>
+                    <div class="flex items-center justify-between my-2">
+                        <span id="bsi-number" class="text-lg font-semibold text-gray-800 tracking-wider">[NOMOR REKENING
+                            BSI]</span>
+                        <button data-lang="copy-btn" onclick="copyToClipboard('bsi-number', this)"
+                            class="skeuo-button px-3 py-1 text-sm font-medium">Salin</button>
+                    </div>
+                    <p data-lang="account-name-prefix" class="text-sm text-gray-600 mt-auto">a/n [NAMA PEMILIK REKENING]
+                    </p>
+                </div>
+
+                <!-- Visa/Mastercard -->
+                <div class="skeuo-card p-5 flex flex-col opacity-50 cursor-not-allowed">
+                    <div class="flex items-center space-x-2 mb-4">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/1280px-Visa_Inc._logo.svg.png"
+                            alt="Logo Visa" class="h-5 w-auto object-contain">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/MasterCard_Logo.svg/1280px-MasterCard_Logo.svg.png"
+                            alt="Logo Mastercard" class="h-8 w-auto object-contain">
+                    </div>
+                    <p data-lang="card-title" class="text-sm text-gray-500">Kartu Kredit/Debit</p>
+                    <div class="flex items-center justify-between my-2">
+                        <span data-lang="soon-text" class="text-lg font-semibold text-gray-500">Segera Hadir</span>
+                    </div>
+                    <p data-lang="unavailable-text" class="text-sm text-gray-600 mt-auto">Belum tersedia</p>
+                </div>
+
+                <!-- Crypto Wallet -->
+                <div class="skeuo-card p-5 flex flex-col">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Tether_USDT_logo.svg/2048px-Tether_USDT_logo.svg.png"
+                        alt="Logo USDT" class="h-8 w-8 object-contain self-start mb-4">
+                    <p data-lang="crypto-title" class="text-sm text-gray-500">Crypto Wallet (USDT - TRC20)</p>
+                    <div class="flex items-center justify-between my-2">
+                        <span id="crypto-address" class="text-lg font-semibold text-gray-800 truncate">[ALAMAT WALLET
+                            CRYPTO ANDA]</span>
+                        <button data-lang="copy-btn" onclick="copyToClipboard('crypto-address', this)"
+                            class="skeuo-button px-3 py-1 text-sm font-medium">Salin</button>
+                    </div>
+                    <p data-lang="crypto-network" class="text-sm text-gray-600 mt-auto">Jaringan: Tron (TRC20)</p>
+                </div>
+
+                <!-- Patreon -->
+                <a href="https://www.patreon.com/fechl" target="_blank" rel="noopener noreferrer"
+                    class="skeuo-card p-5 flex flex-col items-center justify-center text-center hover:bg-red-50 transition-colors duration-300">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Patreon_logo.svg/1024px-Patreon_logo.svg.png"
+                        alt="Logo Patreon" class="h-8 w-auto object-contain mb-3">
+                    <p data-lang="patreon-title" class="font-semibold text-gray-700">Donasi via Patreon</p>
+                    <p class="text-sm text-red-600">/fechl</p>
+                </a>
+
+                <!-- Telegram Contact -->
+                <a href="https://t.me/fechl" target="_blank" rel="noopener noreferrer"
+                    class="skeuo-card p-5 flex flex-col items-center justify-center text-center hover:bg-blue-50 transition-colors duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-blue-500 mb-3" viewBox="0 0 24 24"
+                        fill="currentColor">
+                        <path
+                            d="M9.78 18.65l.28-4.23l7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3L3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.57c-.28 1.13-1.04 1.4-1.74.88L14.25 16l-4.47 4.35c-.7.66-1.6.32-1.9-.52z" />
+                    </svg>
+                    <p data-lang="telegram-title" class="font-semibold text-gray-700">Hubungi via Telegram</p>
+                    <p class="text-sm text-blue-600">@fechl</p>
+                </a>
+
+            </div>
+        </main>
+
+        <footer class="text-center mt-12 text-gray-500 text-sm">
+            <p data-lang="footer-text">&copy; 2024. Dibuat dengan ❤️</p>
+        </footer>
+    </div>
+
+    <script>
+        // --- Language and Translation ---
+        const translations = {
+            id: {
+                'page-title': 'Halaman Pembayaran',
+                'main-title': 'Dukungan & Pembayaran',
+                'main-subtitle': 'Pilih metode pembayaran yang paling nyaman untuk Anda. Terima kasih atas dukungan Anda!',
+                'qris-desc': 'Mendukung semua E-Wallet (GoPay, OVO, Dana, ShopeePay) & Mobile Banking.',
+                'account-name-prefix': 'a/n',
+                'copy-btn': 'Salin',
+                'copy-feedback': 'Disalin!',
+                'patreon-title': 'Donasi via Patreon',
+                'card-title': 'Kartu Kredit/Debit',
+                'soon-text': 'Segera Hadir',
+                'unavailable-text': 'Belum tersedia',
+                'crypto-title': 'Crypto Wallet (USDT - TRC20)',
+                'crypto-network': 'Jaringan: Tron (TRC20)',
+                'telegram-title': 'Hubungi via Telegram',
+                'footer-text': '© 2024. Dibuat dengan ❤️'
+            },
+            en: {
+                'page-title': 'Payment Page',
+                'main-title': 'Support & Payment',
+                'main-subtitle': 'Choose the most convenient payment method for you. Thank you for your support!',
+                'qris-desc': 'Supports all E-Wallets (GoPay, OVO, Dana, ShopeePay) & Mobile Banking.',
+                'account-name-prefix': 'c/o',
+                'copy-btn': 'Copy',
+                'copy-feedback': 'Copied!',
+                'patreon-title': 'Donate on Patreon',
+                'card-title': 'Credit/Debit Card',
+                'soon-text': 'Coming Soon',
+                'unavailable-text': 'Not available',
+                'crypto-title': 'Crypto Wallet (USDT - TRC20)',
+                'crypto-network': 'Network: Tron (TRC20)',
+                'telegram-title': 'Contact via Telegram',
+                'footer-text': '© 2024. Made with ❤️'
+            }
+        };
+
+        let currentLanguage = 'id';
+
+        /**
+         * Switches the language of the page content.
+         * @param {string} lang - The language to switch to ('id' or 'en').
+         */
+        function switchLanguage(lang) {
+            if (!translations[lang]) return;
+            currentLanguage = lang;
+
+            // Update all elements with data-lang attribute
+            document.querySelectorAll('[data-lang]').forEach(el => {
+                const key = el.getAttribute('data-lang');
+                if (translations[lang][key]) {
+                    // Special handling for account name prefix to keep the name
+                    if (key === 'account-name-prefix') {
+                        const name = el.innerText.substring(el.innerText.indexOf(' '));
+                        el.innerText = translations[lang][key] + name;
+                    } else {
+                        el.innerText = translations[lang][key];
+                    }
+                }
+            });
+
+            // Update page title
+            document.title = translations[lang]['page-title'];
+
+            // Update active button style
+            document.getElementById('lang-id').classList.toggle('lang-active', lang === 'id');
+            document.getElementById('lang-en').classList.toggle('lang-active', lang === 'en');
+        }
+
+        // Event listeners for language buttons
+        document.getElementById('lang-id').addEventListener('click', () => switchLanguage('id'));
+        document.getElementById('lang-en').addEventListener('click', () => switchLanguage('en'));
+
+        // Set initial language on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            switchLanguage('id');
+        });
+
+
+        // --- Clipboard Functionality ---
+
+        /**
+         * Copies the text content of an element to the clipboard.
+         * @param {string} elementId - The ID of the element containing the text to copy.
+         * @param {HTMLElement} buttonElement - The button element that was clicked.
+         */
+        function copyToClipboard(elementId, buttonElement) {
+            const textarea = document.createElement('textarea');
+            const textToCopy = document.getElementById(elementId).innerText;
+
+            if (!textToCopy) {
+                console.error('Element with ID ' + elementId + ' not found or has no text.');
+                return;
+            }
+
+            textarea.value = textToCopy;
+            document.body.appendChild(textarea);
+            textarea.select();
+
+            try {
+                if (navigator.clipboard) {
+                    navigator.clipboard.writeText(textToCopy).then(() => {
+                        showFeedback(buttonElement);
+                    });
+                } else {
+                    document.execCommand('copy');
+                    showFeedback(buttonElement);
+                }
+            } catch (err) {
+                console.error('Failed to copy text: ', err);
+                alert('Failed to copy. Please copy manually.');
+            } finally {
+                document.body.removeChild(textarea);
+            }
+        }
+
+        /**
+         * Provides visual feedback on the button after a successful copy.
+         * @param {HTMLElement} buttonElement - The button to provide feedback on.
+         */
+        function showFeedback(buttonElement) {
+            const originalText = translations[currentLanguage]['copy-btn'];
+            const feedbackText = translations[currentLanguage]['copy-feedback'];
+
+            buttonElement.innerText = feedbackText;
+            buttonElement.style.color = '#007bff';
+
+            setTimeout(() => {
+                buttonElement.innerText = originalText;
+                buttonElement.style.color = '#555';
+            }, 2000);
+        }
+    </script>
+
+</body>
+
+</html>
